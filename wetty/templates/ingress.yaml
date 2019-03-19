@@ -1,0 +1,26 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "wetty.fullname" . -}}
+{{- $ingressPaths := .Values.ingress.paths -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app.kubernetes.io/name: {{ include "wetty.name" . }}
+    helm.sh/chart: {{ include "wetty.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  rules:
+    - host: wetty.roger.35.233.250.229.nip.io
+      http:
+        paths:
+          - path: /wetty
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: 3000
+{{- end }}
