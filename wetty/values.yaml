@@ -26,6 +26,8 @@ ingress:
     ingress.kubernetes.io/ssl-redirect: "false"
     ingress.kubernetes.io/proxy-body-size: 50m
     ingress.kubernetes.io/proxy-request-buffering: "off"
+  hosts:
+    - wetty.roger.35.236.103.223.nip.io
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
