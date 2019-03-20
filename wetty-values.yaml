@@ -9,4 +9,4 @@ ingress:
     ingress.kubernetes.io/proxy-body-size: 50m
     ingress.kubernetes.io/proxy-request-buffering: "off"
   hosts:
-    - wetty.127.0.0.1.nip.io
+    - wetty.${user}.${lb_ip}.nip.io 
