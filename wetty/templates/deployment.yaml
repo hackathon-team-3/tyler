@@ -1,39 +1,44 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "wetty.fullname" . }}
+  name: {{ include "wetty2.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "wetty.name" . }}
-    helm.sh/chart: {{ include "wetty.chart" . }}
+    app.kubernetes.io/name: {{ include "wetty2.name" . }}
+    helm.sh/chart: {{ include "wetty2.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "wetty.name" . }}
+      app.kubernetes.io/name: {{ include "wetty2.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "wetty.name" . }}
+        app.kubernetes.io/name: {{ include "wetty2.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: SSHHOST
+              value: {{ .Values.SSHHOST }}
+            - name: SSHPORT
+              value: {{ .Values.SSHPORT | quote }}
+            - name: SSHUSER
+              value: {{ .Values.SSHUSER }}
+            - name: TITLE
+              value: {{ .Values.WETTYTITLE }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 3000
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
+              path: /wetty
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

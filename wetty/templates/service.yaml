@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "wetty.fullname" . }}
+  name: {{ include "wetty2.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "wetty.name" . }}
-    helm.sh/chart: {{ include "wetty.chart" . }}
+    app.kubernetes.io/name: {{ include "wetty2.name" . }}
+    helm.sh/chart: {{ include "wetty2.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
@@ -15,5 +15,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "wetty.name" . }}
+    app.kubernetes.io/name: {{ include "wetty2.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
