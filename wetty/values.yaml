@@ -4,9 +4,9 @@
 
 replicaCount: 1
 
-SSHPORT: 80
-SSHHOST: vault.roger.35.236.22.160.nip.io
-SSHUSER: student
+#SSHPORT: 80
+#SSHHOST: vault.roger.35.236.22.160.nip.io
+#SSHUSER: student
 WETTYTITLE: Hashicorp Vault Training
 
 image:
